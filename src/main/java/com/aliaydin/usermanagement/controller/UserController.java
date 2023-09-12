@@ -5,6 +5,7 @@ import com.aliaydin.usermanagement.entity.User;
 import com.aliaydin.usermanagement.exception.ErrorDetails;
 import com.aliaydin.usermanagement.exception.ResourceNotFoundException;
 import com.aliaydin.usermanagement.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class UserController {
 
     // build create User REST API
     @PostMapping("")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
         UserDto saved = userService.createUser(userDto);
 
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
@@ -47,7 +48,7 @@ public class UserController {
 
     // Build update user REST API
     @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto user){
+    public ResponseEntity<UserDto> updateUser(@Valid @PathVariable Long id, @RequestBody UserDto user){
         user.setId(id);
         UserDto updatedUser = userService.updateUser(user);
         return ResponseEntity.ok(updatedUser);
