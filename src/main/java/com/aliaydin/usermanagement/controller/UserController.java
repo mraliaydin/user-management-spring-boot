@@ -5,6 +5,9 @@ import com.aliaydin.usermanagement.entity.User;
 import com.aliaydin.usermanagement.exception.ErrorDetails;
 import com.aliaydin.usermanagement.exception.ResourceNotFoundException;
 import com.aliaydin.usermanagement.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,10 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Tag(
+        name = "CRUD REST APIs for User Resource",
+        description = "Create, Update, Get, Get All, Delete User APIs"
+)
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/users")
@@ -22,6 +29,14 @@ public class UserController {
 
     private UserService userService;
 
+    @Operation(
+            summary = "Create User Rest Api",
+            description = "To save user in a db"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 Created"
+    )
     // build create User REST API
     @PostMapping("")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
